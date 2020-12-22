@@ -116,3 +116,19 @@ def getstorageaccountkeys(storageaccountname, resourcegroup):
     processdict = bashprocess(constrcmd)
 
     return processdict['output']
+
+def getcosmosaccounturl(cosmosaccountname, resourcegroup, subscription):
+    """Get the URL for the cosmos db account"""
+
+    urlcmd = "az cosmosdb show" + " --name " +  cosmosaccountname + " --query documentEndpoint" + " --resource-group " + resourcegroup + " --subscription " + subscription
+    processdict = bashprocess(urlcmd)
+
+    return processdict['output'].strip('"')
+
+def getcosmosaccountaccesskey(cosmosaccountname, resourcegroup, subscription):
+    """Get the primary access key for the cosmos account"""
+
+    keycmd = "az cosmosdb keys list" + " --name " +  cosmosaccountname + " --query primaryMasterKey" + " --resource-group " + resourcegroup + " --subscription " + subscription
+    processdict = bashprocess(keycmd)
+
+    return processdict['output'].strip('"')
